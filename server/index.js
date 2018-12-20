@@ -5,6 +5,7 @@ const massive = require('massive');
 const dotenv = require('dotenv');
 dotenv.config();
 const authController = require('./controllers/authController');
+const quotesController = require('./controllers/quotesController');
 
 massive(process.env.CONNECTION_STRING).then(db => {
   app.set('db', db);
@@ -24,3 +25,11 @@ app.use(session({
 }));
 
 app.get('/auth/callback', authController.login);
+app.get('/auth/user-data', authController.getUser);
+app.post('/auth/logout', authController.logout);
+app.get('/api/quotes', quotesController.getQuotes);
+
+const PORT = 4000;
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});

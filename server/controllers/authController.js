@@ -59,5 +59,14 @@ module.exports = {
         console.log('error in login route', error);
         res.status(500).send('Something bad happened on the server');
       });
+  },
+
+  getUser: (req, res) => {
+    res.json({ user: req.session.user });
+  },
+
+  logout: (req, res) => {
+    req.session.destroy();
+    res.send();
   }
 }
